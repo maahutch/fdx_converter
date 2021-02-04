@@ -1,32 +1,25 @@
 from lxml import etree
 
+from scene_class import scene
+
 tree = etree.parse(('noDuh.fdx'))
 
 root=tree.getroot()
 
-# get root element
-#root = tree.getroot()
 
-#print(root.tag)
-
-#for child in root:
- #   print(child.tag, child.attrib)
-    
-#[elem.tag for elem in root.iter()]
-
-
-#for Content in root.iter('Content'):
-#    print(Content.attrib)
-    
-    
-
-
-#for paragraph in root.findall("./Content/Paragraph[@Type=Scene Heading"):
-   # x = paragraph.attrib
-   #if x['Type'] == 'Scene Heading':
-#   print(x)
    
 
-x= root.xpath("./Content/Paragraph[@Type='Scene Heading']/child::*")
+scene_number = root.xpath("./Content/Paragraph[@Type='Scene Heading']")
       
-print(x[7].attrib)
+all_scenes = []
+
+for i in range(0, len(scene_number)):
+    
+    no = scene_number[i].attrib['Number']
+    
+    tmp_scene = scene(scene_no = no)
+    
+    all_scenes.append(tmp_scene)
+    
+
+print(all_scenes)
